@@ -42,6 +42,7 @@ var(
 	doctorNameReg0Prefix = regexp.MustCompile(`<strong class="J_ExpertName">`)
 	doctorNameReg0Suffix = regexp.MustCompile(`</strong>`)
 
+	typeJudgeReg = regexp.MustCompile(`<b>擅长：</b>[\s]+<span>[\s\S]+?</span>[\s]+?</div>[\s]+?<div class="about">`)
 
 	goodAtReg = regexp.MustCompile(`<b>擅长：</b>[\s]+<span>[\s\S]+?</span>[\s]+<a href="[\s\S]+?" data-description="[\s\S]+?">`)
 	goodAtRegPrefix = regexp.MustCompile(`<b>擅长：</b>[\s]+<span>[\s\S]+?</span>[\s]+<a href="[\s\S]+?" data-description="`)
@@ -162,19 +163,15 @@ func GetDoctorDetails(urlChan chan string) {
 			jobTitle = spanReg2.ReplaceAllString(jobTitle, "")
 			expertDetailData.JobTitle = jobTitle
 
-
-
-			goodAt := goodAtReg.FindString(respBody)
-			l4g.Error(goodAt)
-			goodAt = goodAtRegPrefix.ReplaceAllString(goodAt, "")
-			goodAt = goodAtRegSuffix.ReplaceAllString(goodAt, "")
-			l4g.Error(goodAt)
-
-			if goodAt == "" {
+			var goodAt string
+			if "" == typeJudgeReg.FindString(respBody) { 
+				goodAt = goodAtReg.FindString(respBody)
+				goodAt = goodAtRegPrefix.ReplaceAllString(goodAt, "")
+				goodAt = goodAtRegSuffix.ReplaceAllString(goodAt, "")
+			} else {
 				goodAt = goodAtReg2.FindString(respBody)
 				goodAt = goodAtReg2Prefix.ReplaceAllString(goodAt, "")
 				goodAt = goodAtReg2Suffix.ReplaceAllString(goodAt, "")
-				l4g.Error(goodAt)
 			}
 			expertDetailData.Skill = goodAt
 
@@ -182,13 +179,11 @@ func GetDoctorDetails(urlChan chan string) {
 			brief := briefReg0.FindString(respBody)
 			brief = briefReg0Prefix.ReplaceAllString(brief, "")
 			brief = briefReg0Suffix.ReplaceAllString(brief, "")
-			l4g.Error(brief)
 
 			if brief == "" {
 				brief = briefReg2.FindString(respBody)
 				brief = briefReg2Prefix.ReplaceAllString(brief, "")
 				brief = briefReg2Suffix.ReplaceAllString(brief, "")
-				l4g.Error(brief)
 			}
 			expertDetailData.Brief = brief
 			if expertDetailData.Name != "" {
