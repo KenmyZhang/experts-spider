@@ -16,11 +16,13 @@ func main() {
     l4g.AddFilter("stdout", l4g.ERROR, l4g.NewConsoleLogWriter())
     cleanupDone := make(chan bool)
 
-    numStrChan := make(chan string, 1000)
-    go app.GetExpertId(numStrChan)
-    go app.GetExpertDetail(numStrChan)
+   // numStrChan := make(chan string, 1000)
+    //go app.GetExpertId(numStrChan)
+    //go app.GetExpertDetail(numStrChan)
 
     //go app.GetAllExpertId()
+
+    go app.GetExpertFromGuaHao()
 
     Stop(cleanupDone)
 
