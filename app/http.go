@@ -13,11 +13,11 @@ import (
 func httpGet(url string, conv bool) (string, error) {
 	var req *http.Request
 	var httpError error
-	time.Sleep(150 * time.Millisecond)
+	time.Sleep(100 * time.Millisecond)
 	if req, httpError = http.NewRequest("GET", url, nil); httpError != nil {
 		return "", httpError
 	}
-
+	req.Header.Add("user-agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36")
 	resp, err := HttpClient().Do(req)
 	if err != nil {
 		return "", errors.New("http get error:" + err.Error())

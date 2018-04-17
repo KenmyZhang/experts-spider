@@ -21,8 +21,9 @@ func main() {
     //go app.GetExpertDetail(numStrChan)
 
     //go app.GetAllExpertId()
-
-    go app.GetExpertFromGuaHao()
+    urlChan := make(chan string, 10000)
+    go app.GetExpertFromGuaHao(urlChan)
+    go app.GetDoctorDetails(urlChan)
 
     Stop(cleanupDone)
 

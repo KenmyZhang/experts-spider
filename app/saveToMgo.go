@@ -8,6 +8,7 @@ import (
 
 var ExpertDetailsCollection *mgo.Collection
 var ExpertDetailsCollection1 *mgo.Collection
+var ExpertDetailsCollection2 *mgo.Collection
 var MgoSession *mgo.Session
 
 func init() {
@@ -21,6 +22,7 @@ func init() {
 
 	ExpertDetailsCollection = MgoSession.DB("spider").C("expert_details0")
 	ExpertDetailsCollection1 = MgoSession.DB("spider").C("expert_details1")
+	ExpertDetailsCollection2 = MgoSession.DB("spider").C("expert_details2")
 //	ExpertDetailsCollection.EnsureIndex(mgo.Index{
 //		Key:    []string{"drugNum"},
 //		Unique: true,
@@ -40,6 +42,15 @@ func SaveExpertDetail(expertDetailData *ExpertDetailData) {
 func SaveExpertDetail1(expertDetailData *ExpertDetailData) {
 	expertDetailData.PreSave()
 	err := ExpertDetailsCollection1.Insert(expertDetailData)
+	if err != nil {
+		l4g.Error(err)
+		return
+	}
+}
+
+func SaveExpertDetail2(expertDetailData *ExpertDetailData) {
+	expertDetailData.PreSave()
+	err := ExpertDetailsCollection2.Insert(expertDetailData)
 	if err != nil {
 		l4g.Error(err)
 		return
