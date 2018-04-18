@@ -190,6 +190,7 @@ func GetDoctorDetails(urlChan chan string) {
 				brief = briefReg2Suffix.ReplaceAllString(brief, "")
 			}
 			expertDetailData.Brief = brief
+			expertDetailData.URL = url
 			if expertDetailData.Name != "" {
 				SaveExpertDetail2(expertDetailData)
 			}

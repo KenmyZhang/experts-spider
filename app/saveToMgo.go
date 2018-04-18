@@ -23,10 +23,10 @@ func init() {
 	ExpertDetailsCollection = MgoSession.DB("spider").C("expert_details0")
 	ExpertDetailsCollection1 = MgoSession.DB("spider").C("expert_details1")
 	ExpertDetailsCollection2 = MgoSession.DB("spider").C("expert_details2")
-//	ExpertDetailsCollection.EnsureIndex(mgo.Index{
-//		Key:    []string{"drugNum"},
-//		Unique: true,
-//	})
+	ExpertDetailsCollection2.EnsureIndex(mgo.Index{
+		Key:    []string{"url"},
+		Unique: true,
+	})
 
 }
 

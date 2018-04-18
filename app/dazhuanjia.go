@@ -70,6 +70,7 @@ type ExpertDetailData struct {
 	MedicalBranchName string `bson:"medicalBranchName" json:"medicalBranchName"`
 	Brief string `bson:"brief" json:"brief"`
 	Skill string `bson:"skill" json:"skill"`
+	URL string `bson:"url" json:"url"`
 }
 
 var encoding = base32.NewEncoding("ybndrfg8e234fdfsxot1uwisza345h769")
