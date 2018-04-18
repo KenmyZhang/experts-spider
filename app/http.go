@@ -13,7 +13,7 @@ import (
 func httpGet(url string, conv bool) (string, error) {
 	var req *http.Request
 	var httpError error
-	time.Sleep(100 * time.Millisecond)
+	time.Sleep(80 * time.Millisecond)
 	if req, httpError = http.NewRequest("GET", url, nil); httpError != nil {
 		return "", httpError
 	}
